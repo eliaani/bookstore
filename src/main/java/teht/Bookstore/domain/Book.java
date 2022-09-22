@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Book {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,17 +21,22 @@ public class Book {
 	private int bookYear;
 	private int price;
 	
+	@ManyToOne
+	@JoinColumn(name="categoryid")
+	private Category category;
+	
 	public Book() {
 		super();
 	}
 	
-	public Book(String title, String author, String isbn, int year, int price) {
+	public Book(String title, String author, String isbn, int year, int price, Category category) {
 		super();
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
 		this.bookYear = year;
 		this.price = price;
+		this.category = category;
 	}
 	
 	@Override
@@ -85,4 +93,12 @@ public class Book {
 		this.price = price;
 	}
 	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 }

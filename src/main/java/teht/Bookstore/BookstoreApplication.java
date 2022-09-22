@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import teht.Bookstore.domain.Book;
 import teht.Bookstore.domain.BookRepository;
+import teht.Bookstore.domain.Category;
+import teht.Bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -18,11 +20,14 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner BookStuff(BookRepository repository) {
+	public CommandLineRunner BookStuff(BookRepository bookrepository, CategoryRepository categoryrepository) {
 		return (args) -> {
 			log.info("save a couple of students");
-			repository.save(new Book("kirja1", "Lovemore Chidi", "657-22-65432-32-1" ,1999, 25));
-			repository.save(new Book("kirja2", "Viola Ismene", "217-97-8364-97-6" , 2000, 20));
+			categoryrepository.save(new Category("Fantasy"));
+			categoryrepository.save(new Category("Sci-fi"));
+			categoryrepository.save(new Category("Romance"));
+			bookrepository.save(new Book("kirja1", "Lovemore Chidi", "657-22-65432-32-1" ,1999, 25, categoryrepository.findByname("Fantasy").get(0)));
+			bookrepository.save(new Book("kirja2", "Viola Ismene", "217-97-8364-97-6" , 2000, 20, categoryrepository.findByname("Sci-fi").get(0)));
 		};
 	}
 }
