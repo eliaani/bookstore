@@ -1,6 +1,7 @@
 package teht.Bookstore.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,10 +19,10 @@ public class Book {
 	private String title;
 	private String author;
 	private String isbn;
-	private int bookYear;
+	private int bookyear;
 	private int price;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="categoryid")
 	private Category category;
 	
@@ -34,7 +35,7 @@ public class Book {
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
-		this.bookYear = year;
+		this.bookyear = year;
 		this.price = price;
 		this.category = category;
 	}
@@ -42,7 +43,7 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", bookYear="
-				+ bookYear + ", price=" + price + "]";
+				+ bookyear + ", price=" + price + "]";
 	}
 	
 	public long getId() {
@@ -78,11 +79,11 @@ public class Book {
 	}
 
 	public int getBookYear() {
-		return bookYear;
+		return bookyear;
 	}
 
 	public void setBookYear(int bookYear) {
-		this.bookYear = bookYear;
+		this.bookyear = bookYear;
 	}
 
 	public int getPrice() {
